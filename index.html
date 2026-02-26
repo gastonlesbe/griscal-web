@@ -623,20 +623,38 @@ function toggleFaq(btn) {
 // ── EMAIL ────────────────────────────────────────────────
 function submitEmail() {
   const inp = document.getElementById('emailInput');
-  const val = inp.value;
+  const val = inp.value.trim();
   if (!val || !val.includes('@')) {
     inp.style.borderColor = '#cc4444';
     inp.placeholder = lang === 'es' ? 'Email inválido' : 'Enter a valid email';
     setTimeout(() => { inp.style.borderColor = ''; inp.placeholder = lang === 'es' ? 'tu@email.com' : 'your@email.com'; }, 2500);
     return;
   }
-  document.querySelector('.email-form').style.display = 'none';
-  const s = document.getElementById('emailSuccess');
-  s.textContent = lang === 'es'
-    ? '🎉 ¡Estás en la lista! Te avisamos cuando Griscal Plus se lance.'
-    : '🎉 You\'re on the list! We\'ll email you when Griscal Plus launches.';
-  s.style.display = 'block';
-  // TODO: POST to /api/emails/signup
+
+  const btn = document.querySelector('.email-form button');
+  btn.disabled = true;
+  btn.textContent = lang === 'es' ? 'Enviando…' : 'Sending…';
+
+  fetch('/api/emails/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: val }),
+  })
+    .then(r => r.json())
+    .then(() => {
+      document.querySelector('.email-form').style.display = 'none';
+      const s = document.getElementById('emailSuccess');
+      s.textContent = lang === 'es'
+        ? '🎉 ¡Estás en la lista! Te avisamos cuando Griscal Plus se lance.'
+        : '🎉 You\'re on the list! We\'ll email you when Griscal Plus launches.';
+      s.style.display = 'block';
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.textContent = lang === 'es' ? 'Unirse ✓' : 'Join ✓';
+      inp.style.borderColor = '#cc4444';
+      setTimeout(() => { inp.style.borderColor = ''; }, 2500);
+    });
 }
 
 // ── SCROLL ANIMATIONS ────────────────────────────────────
