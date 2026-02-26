@@ -1,25 +1,18 @@
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
 
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-    }),
-  });
+function getDb() {
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+      }),
+    });
+  }
+  return admin.firestore();
 }
-
-const db = admin.firestore();
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
 
 module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -36,6 +29,8 @@ module.exports = async (req, res) => {
   }
 
   try {
+    const db = getDb();
+
     // Check for duplicates
     const existing = await db.collection("signups").where("email", "==", email).limit(1).get();
     if (!existing.empty) {
@@ -45,6 +40,14 @@ module.exports = async (req, res) => {
     await db.collection("signups").add({
       email,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
     });
 
     await transporter.sendMail({
@@ -63,7 +66,7 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({ success: true });
   } catch (err) {
-    console.error("Signup error:", err);
-    return res.status(500).json({ error: "Something went wrong. Please try again." });
+    console.error("Signup error:", err.message, err.stack);
+    return res.status(500).json({ error: err.message });
   }
 };
