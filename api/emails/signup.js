@@ -1,6 +1,27 @@
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
 
+const ALLOWED_ORIGIN = "https://griscal.app";
+
+// Simple in-memory rate limit: max 5 requests per IP per 60s window
+// Note: resets on cold starts, but good enough for basic abuse prevention
+const rateLimitMap = new Map();
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60 * 1000;
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip) || { count: 0, start: now };
+  if (now - entry.start > RATE_WINDOW_MS) {
+    rateLimitMap.set(ip, { count: 1, start: now });
+    return false;
+  }
+  if (entry.count >= RATE_LIMIT) return true;
+  entry.count++;
+  rateLimitMap.set(ip, entry);
+  return false;
+}
+
 function getDb() {
   if (!admin.apps.length) {
     admin.initializeApp({
@@ -15,12 +36,18 @@ function getDb() {
 }
 
 module.exports = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+  // Rate limiting
+  const ip = req.headers["x-forwarded-for"]?.split(",")[0].trim() || "unknown";
+  if (isRateLimited(ip)) {
+    return res.status(429).json({ error: "Too many requests. Please try again later." });
+  }
 
   const { email } = req.body || {};
 
@@ -67,6 +94,6 @@ module.exports = async (req, res) => {
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error("Signup error:", err.message, err.stack);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: "Something went wrong. Please try again." });
   }
 };
