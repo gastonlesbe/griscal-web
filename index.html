@@ -180,6 +180,12 @@ hr.phr{border:none;border-top:1px solid var(--border);margin:20px 0;}
 .pa-plus:hover{background:#1dfceb;transform:translateY(-2px);box-shadow:0 10px 36px rgba(14,207,190,.28);}
 .pay-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:28px;flex-wrap:wrap;}
 .pay-badge{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);padding:9px 16px;border-radius:10px;font-size:.82rem;color:var(--muted);}
+.pay-badge.featured-pay{border-color:var(--teal);color:var(--teal);background:rgba(14,207,190,.06);}
+.currency-notice{display:none;margin:0 auto 24px;max-width:620px;border-radius:14px;padding:16px 20px;font-size:.85rem;line-height:1.6;text-align:left;}
+.currency-notice.ar-notice{background:rgba(14,207,190,.06);border:1px solid rgba(14,207,190,.25);color:var(--text);}
+.currency-notice.intl-notice{background:rgba(245,200,66,.05);border:1px solid rgba(245,200,66,.2);color:var(--text);}
+.currency-notice strong{color:var(--white);}
+.currency-notice .no-usd{color:var(--teal);font-weight:700;}
 
 /* EMAIL */
 .email-section{text-align:center;padding:100px 32px;background:linear-gradient(180deg,transparent,rgba(14,207,190,.04),transparent);}
@@ -402,6 +408,9 @@ footer{border-top:1px solid var(--border);padding:40px 52px;display:flex;justify
       <span class="toggle-label t" id="lbl-y" data-en="Yearly" data-es="Anual"></span>
       <span class="save-badge t" data-en="Save 37%" data-es="Ahorrá 37%"></span>
     </div>
+    <!-- Currency notice — filled by JS based on timezone -->
+    <div id="currency-notice" class="currency-notice"></div>
+
     <div class="pricing-wrap">
       <div class="pricing-grid">
         <div class="plan">
@@ -445,8 +454,8 @@ footer{border-top:1px solid var(--border);padding:40px 52px;display:flex;justify
       </div>
       <p style="margin-top:28px;font-size:.82rem;color:var(--muted);margin-bottom:14px;" class="t" data-en="Pay securely with:" data-es="Pagá de forma segura con:"></p>
       <div class="pay-row">
-        <div class="pay-badge">🅿️ PayPal</div>
-        <div class="pay-badge">💙 Mercado Pago</div>
+        <div class="pay-badge" id="badge-paypal">🅿️ PayPal</div>
+        <div class="pay-badge" id="badge-mp">💙 Mercado Pago</div>
         <div class="pay-badge">💳 <span class="t" data-en="Credit Card" data-es="Tarjeta de Crédito"></span></div>
         <div class="pay-badge">🔒 <span class="t" data-en="SSL Secured" data-es="SSL Seguro"></span></div>
       </div>
@@ -690,8 +699,38 @@ document.querySelectorAll('.prob-card,.app-row,.plan,.letter-card,.other-card').
   obs.observe(el);
 });
 
+// ── CURRENCY NOTICE ──────────────────────────────────────
+function showCurrencyNotice() {
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  const isAR = tz.startsWith('America/Argentina') || navigator.language === 'es-AR';
+
+  const notice = document.getElementById('currency-notice');
+  if (!notice) return;
+
+  if (isAR) {
+    notice.className = 'currency-notice ar-notice';
+    notice.innerHTML = `
+      🇦🇷 <strong>Si estás en Argentina:</strong>
+      el precio de referencia es en USD, pero el cobro se realiza
+      <span class="no-usd">en pesos argentinos</span> a través de Mercado Pago
+      al tipo de cambio del día.
+      <strong>No se realizan cargos en dólares ni en otras divisas.</strong>`;
+    document.getElementById('badge-mp')?.classList.add('featured-pay');
+  } else {
+    notice.className = 'currency-notice intl-notice';
+    notice.innerHTML = `
+      🌍 <strong>Outside Argentina?</strong>
+      Subscribe in <strong>USD</strong> via PayPal.
+      Secure, simple — cancel anytime.`;
+    document.getElementById('badge-paypal')?.classList.add('featured-pay');
+  }
+
+  notice.style.display = 'block';
+}
+
 // ── INIT ─────────────────────────────────────────────────
 applyLang(detectLang());
+showCurrencyNotice();
 </script>
 </body>
 </html>
