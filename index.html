@@ -147,45 +147,36 @@ h2 em{font-style:italic;color:var(--teal);}
 .other-desc{font-size:.75rem;color:var(--muted);margin-top:2px;}
 
 /* PRICING */
-.pricing-wrap{max-width:840px;margin:52px auto 0;}
-.pricing-toggle{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:32px;}
-.toggle-label{font-size:.88rem;color:var(--muted);}
-.toggle-label.active{color:var(--white);font-weight:500;}
-.save-badge{background:rgba(245,200,66,.15);color:var(--gold);font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:99px;border:1px solid rgba(245,200,66,.25);}
-.toggle-sw{width:48px;height:26px;background:var(--card);border:1px solid var(--border);border-radius:99px;cursor:pointer;position:relative;transition:background .25s;}
-.toggle-sw.on{background:var(--teal);}
-.toggle-knob{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--white);border-radius:50%;transition:transform .25s;}
-.toggle-sw.on .toggle-knob{transform:translateX(22px);}
-.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-.plan{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:38px;position:relative;overflow:hidden;}
+.pricing-wrap{max-width:980px;margin:52px auto 0;}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+@media(max-width:860px){.pricing-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto;}}
+.plan{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:32px;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+.plan.mid{border-color:rgba(14,207,190,.35);}
 .plan.featured{border-color:var(--teal);background:linear-gradient(145deg,rgba(14,207,190,.07),var(--card));}
 .plan.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),#1dfceb);}
-.plan-badge{position:absolute;top:20px;right:20px;background:var(--gold);color:#1a0f00;font-size:.68rem;font-weight:800;padding:4px 12px;border-radius:99px;text-transform:uppercase;letter-spacing:.06em;}
+.plan-badge{position:absolute;top:18px;right:18px;background:var(--gold);color:#1a0f00;font-size:.65rem;font-weight:800;padding:4px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.06em;}
 .plan-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:var(--white);}
-.plan-desc{font-size:.82rem;color:var(--muted);margin:6px 0 22px;}
-.plan-price{font-family:'Playfair Display',serif;font-size:3.4rem;font-weight:900;color:var(--white);line-height:1;}
-.plan-price sup{font-size:1.3rem;vertical-align:super;color:var(--teal);}
-.plan-price .per{font-size:.9rem;font-weight:400;color:var(--muted);font-family:'DM Sans',sans-serif;}
-.plan-note{font-size:.8rem;color:var(--teal);margin:8px 0 24px;font-weight:500;min-height:20px;}
-hr.phr{border:none;border-top:1px solid var(--border);margin:20px 0;}
-.plan-features{list-style:none;display:flex;flex-direction:column;gap:12px;}
-.plan-features li{display:flex;align-items:flex-start;gap:10px;font-size:.86rem;color:var(--text);}
+.plan-desc{font-size:.82rem;color:var(--muted);margin:6px 0 18px;}
+.plan-price{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--white);line-height:1;}
+.plan-price sup{font-size:1.2rem;vertical-align:super;color:var(--teal);}
+.plan-price .per{font-size:.82rem;font-weight:400;color:var(--muted);font-family:'DM Sans',sans-serif;}
+.plan-note{font-size:.78rem;color:var(--teal);margin:6px 0 20px;font-weight:500;min-height:18px;}
+hr.phr{border:none;border-top:1px solid var(--border);margin:16px 0;}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:10px;flex:1;}
+.plan-features li{display:flex;align-items:flex-start;gap:10px;font-size:.84rem;color:var(--text);}
 .plan-features li.dim{color:var(--muted);}
 .fck{color:var(--teal);flex-shrink:0;font-weight:700;margin-top:1px;}
-.fxx{color:#cc4444;flex-shrink:0;margin-top:1px;}
-.plan-action{display:block;width:100%;text-align:center;padding:14px;border-radius:12px;font-weight:700;font-size:.95rem;text-decoration:none;transition:all .25s;cursor:pointer;border:none;margin-top:28px;font-family:'DM Sans',sans-serif;}
+.plan-actions{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
+.plan-action{display:block;width:100%;text-align:center;padding:13px;border-radius:12px;font-weight:700;font-size:.9rem;text-decoration:none;transition:all .25s;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;box-sizing:border-box;}
+.plan-action.solo{margin-top:24px;}
 .pa-free{background:transparent;color:var(--text);border:1px solid var(--border);}
 .pa-free:hover{border-color:var(--teal);color:var(--teal);}
-.pa-plus{background:var(--teal);color:var(--dark);}
-.pa-plus:hover{background:#1dfceb;transform:translateY(-2px);box-shadow:0 10px 36px rgba(14,207,190,.28);}
-.pay-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:28px;flex-wrap:wrap;}
-.pay-badge{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);padding:9px 16px;border-radius:10px;font-size:.82rem;color:var(--muted);}
-.pay-badge.featured-pay{border-color:var(--teal);color:var(--teal);background:rgba(14,207,190,.06);}
-.currency-notice{display:none;margin:0 auto 24px;max-width:620px;border-radius:14px;padding:16px 20px;font-size:.85rem;line-height:1.6;text-align:left;}
-.currency-notice.ar-notice{background:rgba(14,207,190,.06);border:1px solid rgba(14,207,190,.25);color:var(--text);}
-.currency-notice.intl-notice{background:rgba(245,200,66,.05);border:1px solid rgba(245,200,66,.2);color:var(--text);}
-.currency-notice strong{color:var(--white);}
-.currency-notice .no-usd{color:var(--teal);font-weight:700;}
+.pa-paypal{background:#0070ba;color:#fff;}
+.pa-paypal:hover{background:#005ea6;transform:translateY(-1px);}
+.pa-mp{background:#009ee3;color:#fff;}
+.pa-mp:hover{background:#007bbf;transform:translateY(-1px);}
+.plan-fine{font-size:.74rem;color:var(--muted);text-align:center;margin-top:12px;}
+.pricing-compare{margin-top:32px;font-size:.84rem;color:var(--muted);line-height:1.7;max-width:680px;margin-left:auto;margin-right:auto;}
 
 /* EMAIL */
 .email-section{text-align:center;padding:100px 32px;background:linear-gradient(180deg,transparent,rgba(14,207,190,.04),transparent);}
@@ -399,66 +390,80 @@ footer{border-top:1px solid var(--border);padding:40px 52px;display:flex;justify
 <!-- PRICING -->
 <section class="section-pad" id="pricing">
   <div class="container" style="text-align:center">
-    <p class="eyebrow t" data-en="Pricing" data-es="Precios"></p>
-    <h2 class="t" data-en="Simple, <em>honest</em> pricing." data-es="Precios simples, <em>honestos.</em>"></h2>
-    <p class="section-sub t" style="margin:0 auto 32px" data-en="No hidden fees. Free forever — or Plus for everything." data-es="Sin costos ocultos. Gratis para siempre — o Plus para todo."></p>
-    <div class="pricing-toggle">
-      <span class="toggle-label active t" id="lbl-m" data-en="Monthly" data-es="Mensual"></span>
-      <div class="toggle-sw" id="billToggle" onclick="toggleBill()"><div class="toggle-knob"></div></div>
-      <span class="toggle-label t" id="lbl-y" data-en="Yearly" data-es="Anual"></span>
-      <span class="save-badge t" data-en="Save 37%" data-es="Ahorrá 37%"></span>
-    </div>
-    <!-- Currency notice — filled by JS based on timezone -->
-    <div id="currency-notice" class="currency-notice"></div>
+    <p class="eyebrow t" data-en="Simple pricing" data-es="Precio simple"></p>
+    <h2 class="t" data-en="Start free. <em>Upgrade when you're ready.</em>" data-es="Empezá gratis. <em>Mejorá cuando quieras.</em>"></h2>
 
     <div class="pricing-wrap">
       <div class="pricing-grid">
+
+        <!-- FREE -->
         <div class="plan">
-          <div class="plan-name">Griscal Free</div>
-          <div class="plan-desc t" data-en="For everyone, forever" data-es="Para todos, para siempre"></div>
-          <div class="plan-price" id="price-free">$<span style="font-size:3.4rem">0</span><span class="per t" id="per-free-m" data-en=" /month" data-es=" /mes"></span></div>
-          <div class="plan-note" style="color:var(--muted)" id="note-free"></div>
+          <div class="plan-name t" data-en="Free" data-es="Gratis"></div>
+          <div class="plan-desc t" data-en="Try Griscal with no commitment." data-es="Probá Griscal sin compromiso."></div>
+          <div class="plan-price">$<span style="font-size:3rem">0</span></div>
+          <div class="plan-note" style="color:var(--muted)">&nbsp;</div>
           <hr class="phr">
           <ul class="plan-features">
-            <li><span class="fck">✓</span><span class="t" data-en="1 profile per app" data-es="1 perfil por app"></span></li>
-            <li><span class="fck">✓</span><span class="t" data-en="Up to 10 events per month" data-es="Hasta 10 eventos por mes"></span></li>
-            <li><span class="fck">✓</span><span class="t" data-en="Basic reminders" data-es="Recordatorios básicos"></span></li>
-            <li><span class="fck">✓</span><span class="t" data-en="Manual sync once per week" data-es="Sync manual una vez por semana"></span></li>
-            <li class="dim"><span class="fxx">✗</span><span class="t" data-en="Ads shown" data-es="Muestra publicidad"></span></li>
-            <li class="dim"><span class="fxx">✗</span><span class="t" data-en="No unlimited profiles" data-es="Sin perfiles ilimitados"></span></li>
-            <li class="dim"><span class="fxx">✗</span><span class="t" data-en="No expense export" data-es="Sin exportación de gastos"></span></li>
+            <li><span class="fck">·</span><span class="t" data-en="1 pet" data-es="1 mascota"></span></li>
+            <li><span class="fck">·</span><span class="t" data-en="Up to 2 family members" data-es="Hasta 2 familiares"></span></li>
+            <li><span class="fck">·</span><span class="t" data-en="1 home and 1 vehicle" data-es="1 casa y 1 vehículo"></span></li>
+            <li><span class="fck">·</span><span class="t" data-en="5 events per item" data-es="5 turnos por ítem"></span></li>
+            <li><span class="fck">·</span><span class="t" data-en="2 shared items" data-es="2 ítems compartidos"></span></li>
           </ul>
-          <a href="https://play.google.com/store/apps/developer?id=gaston+lesbegueris" target="_blank" class="plan-action pa-free t" data-en="Download Free Apps ↗" data-es="Descargar Apps Gratis ↗"></a>
+          <a href="https://griscal.app" class="plan-action pa-free solo t" data-en="Get started free" data-es="Empezar gratis"></a>
+          <p class="plan-fine t" data-en="No credit card required" data-es="Sin tarjeta de crédito"></p>
         </div>
+
+        <!-- BASIC -->
+        <div class="plan mid">
+          <div class="plan-name">Basic</div>
+          <div class="plan-desc t" data-en="For the typical family." data-es="Para la familia típica."></div>
+          <div class="plan-price"><sup>$</sup><span>1.99</span><span class="per t" data-en=" USD/mo" data-es=" USD/mes"></span></div>
+          <div class="plan-note t" id="note-basic" data-en="~$2,000 ARS / month" data-es="~$2.000 ARS / mes"></div>
+          <hr class="phr">
+          <ul class="plan-features">
+            <li><span class="fck">✓</span><span class="t" data-en="Up to 3 pets" data-es="Hasta 3 mascotas"></span></li>
+            <li><span class="fck">✓</span><span class="t" data-en="Up to 6 family members" data-es="Hasta 6 familiares"></span></li>
+            <li><span class="fck">✓</span><span class="t" data-en="Up to 2 homes and 2 vehicles" data-es="Hasta 2 casas y 2 vehículos"></span></li>
+            <li><span class="fck">✓</span><span class="t" data-en="Unlimited events and reminders" data-es="Turnos y medicamentos ilimitados"></span></li>
+            <li><span class="fck">✓</span><span class="t" data-en="Up to 10 shared items" data-es="Hasta 10 ítems compartidos"></span></li>
+          </ul>
+          <div class="plan-actions">
+            <a href="https://griscal.app/login?upgrade=1&amp;tier=basic&amp;provider=paypal" class="plan-action pa-paypal t" data-en="Pay with PayPal" data-es="Pagar con PayPal"></a>
+            <a href="https://griscal.app/login?upgrade=1&amp;tier=basic&amp;provider=mp" class="plan-action pa-mp t" data-en="Pay with Mercado Pago" data-es="Pagar con Mercado Pago"></a>
+          </div>
+          <p class="plan-fine t" data-en="Cancel anytime · Renews monthly" data-es="Cancelá cuando quieras · Renueva mensualmente"></p>
+        </div>
+
+        <!-- PRO -->
         <div class="plan featured">
-          <div class="plan-badge t" data-en="BEST VALUE" data-es="MEJOR PRECIO"></div>
-          <div class="plan-name">Griscal Plus</div>
-          <div class="plan-desc t" data-en="All 4 CarePal apps + Griscal Android app, fully unlocked" data-es="Las 4 apps CarePal + App Android Griscal, completamente desbloqueadas"></div>
-          <div class="plan-price" id="price-plus"><sup>$</sup><span id="plus-amount">1.99</span><span class="per t" id="per-plus" data-en=" /month" data-es=" /mes"></span></div>
-          <div class="plan-note" id="note-plus"></div>
+          <div class="plan-badge t" data-en="Most popular" data-es="Más popular"></div>
+          <div class="plan-name">Pro</div>
+          <div class="plan-desc t" data-en="Everything unlocked. No limits." data-es="Todo desbloqueado. Sin restricciones."></div>
+          <div class="plan-price"><sup>$</sup><span>3.99</span><span class="per t" data-en=" USD/mo" data-es=" USD/mes"></span></div>
+          <div class="plan-note t" id="note-pro" data-en="~$4,000 ARS / month" data-es="~$4.000 ARS / mes"></div>
           <hr class="phr">
           <ul class="plan-features">
-            <li><span class="fck">✓</span><strong class="t" data-en="📱 Griscal Android app — all categories unlocked" data-es="📱 App Android Griscal — todas las categorías desbloqueadas"></strong></li>
-            <li><span class="fck">✓</span><strong class="t" data-en="All 4 CarePal apps fully unlocked" data-es="Las 4 apps CarePal completamente desbloqueadas"></strong></li>
-            <li><span class="fck">✓</span><span class="t" data-en="Unlimited profiles per app" data-es="Perfiles ilimitados por app"></span></li>
-            <li><span class="fck">✓</span><span class="t" data-en="Unlimited events & history" data-es="Eventos e historial ilimitados"></span></li>
-            <li><span class="fck">✓</span><span class="t" data-en="Smart reminders (up to 1 week)" data-es="Recordatorios inteligentes (hasta 1 semana)"></span></li>
-            <li><span class="fck">✓</span><span class="t" data-en="Automatic cloud sync" data-es="Sync automático en la nube"></span></li>
-            <li><span class="fck">✓</span><strong class="t" data-en="Zero ads" data-es="Sin publicidad"></strong></li>
-            <li><span class="fck">✓</span><span class="t" data-en="Expense history export" data-es="Exportación del historial de gastos"></span></li>
-            <li><span class="fck">✓</span><span class="t" data-en="Priority support from the developer" data-es="Soporte prioritario del desarrollador"></span></li>
-            <li><span class="fck">✓</span><span class="t" data-en="Early access to new features" data-es="Acceso anticipado a nuevas funciones"></span></li>
+            <li><span class="fck">✓</span><span class="t" data-en="Unlimited pets" data-es="Mascotas ilimitadas"></span></li>
+            <li><span class="fck">✓</span><span class="t" data-en="Unlimited family members" data-es="Familiares ilimitados"></span></li>
+            <li><span class="fck">✓</span><span class="t" data-en="Unlimited homes and vehicles" data-es="Casas y vehículos ilimitados"></span></li>
+            <li><span class="fck">✓</span><span class="t" data-en="Unlimited events and reminders" data-es="Turnos y medicamentos ilimitados"></span></li>
+            <li><span class="fck">✓</span><span class="t" data-en="Unlimited sharing" data-es="Compartir ilimitado"></span></li>
+            <li><span class="fck">✓</span><strong><span class="t" data-en="Export health history as PDF" data-es="Exportar historial en PDF"></span></strong></li>
           </ul>
-          <a href="#early-access" class="plan-action pa-plus t" data-en="🚀 Get Early Access" data-es="🚀 Acceso Anticipado"></a>
+          <div class="plan-actions">
+            <a href="https://griscal.app/login?upgrade=1&amp;tier=pro&amp;provider=paypal" class="plan-action pa-paypal t" data-en="Pay with PayPal" data-es="Pagar con PayPal"></a>
+            <a href="https://griscal.app/login?upgrade=1&amp;tier=pro&amp;provider=mp" class="plan-action pa-mp t" data-en="Pay with Mercado Pago" data-es="Pagar con Mercado Pago"></a>
+          </div>
+          <p class="plan-fine t" data-en="Cancel anytime · Renews monthly" data-es="Cancelá cuando quieras · Renueva mensualmente"></p>
         </div>
+
       </div>
-      <p style="margin-top:28px;font-size:.82rem;color:var(--muted);margin-bottom:14px;" class="t" data-en="Pay securely with:" data-es="Pagá de forma segura con:"></p>
-      <div class="pay-row">
-        <div class="pay-badge" id="badge-paypal">🅿️ PayPal</div>
-        <div class="pay-badge" id="badge-mp">💙 Mercado Pago</div>
-        <div class="pay-badge">💳 <span class="t" data-en="Credit Card" data-es="Tarjeta de Crédito"></span></div>
-        <div class="pay-badge">🔒 <span class="t" data-en="SSL Secured" data-es="SSL Seguro"></span></div>
-      </div>
+
+      <p class="pricing-compare t"
+        data-en="Not sure which to pick? Most families with 1 to 3 pets choose Basic. Pro is ideal if you have more pets, multiple properties, or want to export your pet's health history as a PDF to share with your vet."
+        data-es="¿No sabés cuál elegir? La mayoría de las familias con 1 a 3 mascotas eligen Basic. Pro es ideal si tenés más mascotas, múltiples propiedades, o querés exportar el historial de salud de tu mascota en PDF para el veterinario.">
+      </p>
     </div>
   </div>
 </section>
@@ -466,8 +471,8 @@ footer{border-top:1px solid var(--border);padding:40px 52px;display:flex;justify
 <!-- EMAIL -->
 <section class="email-section" id="early-access">
   <div class="email-box">
-    <h2 class="t" data-en="Be first. Lock in<br><em>launch pricing.</em>" data-es="Sé el primero. Asegurate<br><em>el precio de lanzamiento.</em>"></h2>
-    <p class="section-sub t" style="margin:0 auto 32px" data-en="Join early access and keep $1.99/month forever — even if the price goes up. One email when we launch." data-es="Unite al acceso anticipado y mantené $1.99/mes para siempre — aunque el precio suba. Un solo email cuando lancemos."></p>
+    <h2 class="t" data-en="Start organizing your pet's care today" data-es="Empezá a organizar tu mascota hoy"></h2>
+    <p class="section-sub t" style="margin:0 auto 32px" data-en="Join thousands of pet owners using Griscal to track medications, appointments, and expenses — all in one place." data-es="Sumate a miles de dueños de mascotas que usan Griscal para registrar medicamentos, turnos y gastos — todo en un solo lugar."></p>
     <div class="email-form">
       <input type="email" class="email-input" id="emailInput" placeholder="your@email.com">
       <button class="btn-primary t" onclick="submitEmail()" data-en="Join ✓" data-es="Unirse ✓"></button>
@@ -608,36 +613,10 @@ function detectLang() {
   return 'en';
 }
 
-// ── BILLING TOGGLE ───────────────────────────────────────
-let isYearly = false;
-
+// ── PRICING NOTES ────────────────────────────────────────
 function updatePricingNotes() {
-  const nf = document.getElementById('note-free');
-  const np = document.getElementById('note-plus');
-  const pa = document.getElementById('plus-amount');
-  const pm = document.getElementById('per-plus');
-
-  if (nf) nf.textContent = lang === 'es' ? 'Siempre gratis' : 'Always free';
-
-  if (isYearly) {
-    if (pa) pa.textContent = '14.99';
-    if (pm) pm.textContent = lang === 'es' ? ' /año' : ' /year';
-    if (np) np.textContent = lang === 'es' ? 'Facturado anualmente — ahorrás $8.89' : 'Billed yearly — save $8.89 vs monthly';
-    document.getElementById('lbl-m')?.classList.remove('active');
-    document.getElementById('lbl-y')?.classList.add('active');
-  } else {
-    if (pa) pa.textContent = '1.99';
-    if (pm) pm.textContent = lang === 'es' ? ' /mes' : ' /month';
-    if (np) np.textContent = lang === 'es' ? 'Facturado mensualmente — cancelá cuando quieras' : 'Billed monthly — cancel anytime';
-    document.getElementById('lbl-m')?.classList.add('active');
-    document.getElementById('lbl-y')?.classList.remove('active');
-  }
-}
-
-function toggleBill() {
-  isYearly = !isYearly;
-  document.getElementById('billToggle').classList.toggle('on', isYearly);
-  updatePricingNotes();
+  // ARS note visibility: always show, content handled via data-en/data-es
+  // Nothing dynamic needed — data-* attributes handle i18n
 }
 
 // ── FAQ ──────────────────────────────────────────────────
