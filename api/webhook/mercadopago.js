@@ -15,26 +15,28 @@ const db = admin.firestore();
 
 function verifySignature(req) {
   const secret = process.env.MP_WEBHOOK_SECRET;
-  if (!secret) return true; // skip if not configured
+  console.log("[mp-webhook] secret set:", !!secret);
+  if (!secret) return true;
 
   const signatureHeader = req.headers["x-signature"];
-  if (!signatureHeader) return true; // no signature sent (test tool / some event types)
+  console.log("[mp-webhook] x-signature:", signatureHeader ?? "(none)");
+  if (!signatureHeader) return true;
 
-  const requestId = req.headers["x-request-id"];
-
-  // Parse ts and v1 from "ts=...,v1=..."
   const parts = Object.fromEntries(
     signatureHeader.split(",").map((p) => p.split("="))
   );
   const { ts, v1 } = parts;
+  console.log("[mp-webhook] ts:", ts, "v1 prefix:", v1?.slice(0, 8));
   if (!ts || !v1) return false;
 
   const dataId = req.body?.data?.id ?? "";
   const template = `id:${dataId};request-date:${ts};`;
+  console.log("[mp-webhook] template:", template);
   const expected = crypto
     .createHmac("sha256", secret)
     .update(template)
     .digest("hex");
+  console.log("[mp-webhook] expected prefix:", expected.slice(0, 8), "v1 prefix:", v1.slice(0, 8), "match:", expected === v1);
 
   try {
     return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(v1));
